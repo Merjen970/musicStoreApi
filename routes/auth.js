@@ -2,6 +2,8 @@ const router = require("express").Router();
 const  User = require ("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const express = require("express");
+const app = express();
 
 //Register
 
@@ -40,7 +42,7 @@ router.post("/register", async (req,res)=>{
 
          },
          process.env.JWT_SEC,
-         {expiresIn:"3d"}
+         {expiresIn:"1h"}
          );
 
          const { password, ...others } = user._doc;
@@ -50,5 +52,12 @@ router.post("/register", async (req,res)=>{
          res.status(500).json(err);
      }
  });
+
+//  //Logout
+//  router.post('/logout', function(req, res){
+//     req.logout();
+//     res.redirect('/login');
+//   });
+
 
 module.exports = router;
